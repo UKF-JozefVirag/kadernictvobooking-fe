@@ -51,8 +51,7 @@
 
 <script>
 import ServiceForm from './ServiceForm.vue'
-import axios from 'axios'
-import axiosInstance from '@/axios.js'
+import axiosInstance, { STORAGE_URL } from '@/axios.js'
 
 export default {
     name: 'ServiceCard',
@@ -136,9 +135,9 @@ export default {
                 console.error(error);
             }
         },
-        getImageUrl(image) {
-            return image ? `http://localhost:8000/storage/${image}` : '';
-        }
+      getImageUrl(image) {
+        return image ? `${STORAGE_URL}${image}` : '';
+      }
     }
 }
 </script>

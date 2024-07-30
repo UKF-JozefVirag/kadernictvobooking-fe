@@ -44,7 +44,7 @@
 <script>
 import SectionDescriber from '@/components/home/SectionDescriber.vue';
 import ServiceCard from '@/components/home/ServiceCard.vue';
-import axiosInstance from '@/axios.js'
+import axiosInstance, { STORAGE_URL } from '@/axios.js'
 import SnackComponent from '@/components/common/SnackComponent.vue'
 
 export default {
@@ -82,7 +82,7 @@ export default {
             }
         },
         getImageUrl(image) {
-            return image ? `http://localhost:8000/storage/${image}` : '';
+            return image ? STORAGE_URL + `${image}` : '';
         },
     },
     created() {

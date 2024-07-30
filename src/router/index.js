@@ -6,11 +6,10 @@ import DashboardView from '@/views/dashboard/DashboardView.vue'
 import ProfileView from '@/views/dashboard/ProfileView.vue'
 import CalendarView from '@/views/dashboard/CalendarView.vue'
 import ReservationView from '@/views/ReservationView.vue'
-import axios from 'axios'
+import axiosInstance, { getCsrfCookie } from '@/axios.js'
 import ReservationCompleteView from '@/views/ReservationCompleteView.vue'
 import ServicesView from '@/views/dashboard/ServicesView.vue'
 import EmployeesView from '@/views/dashboard/EmployeesView.vue'
-import axiosInstance from '@/axios.js'
 
 const routes = [
     {
@@ -93,7 +92,7 @@ const router = createRouter({
 
 async function fetchUser() {
     try {
-        await axios.get('http://localhost:8000/sanctum/csrf-cookie');
+        await getCsrfCookie();
         const response = await axiosInstance.get('/user', {
             headers: {
                 Authorization: `Bearer ${decodeURIComponent($cookies.get('token'))}`

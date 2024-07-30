@@ -50,8 +50,7 @@
 </template>
 
 <script>
-import axios from "axios";
-import axiosInstance from '@/axios.js'
+import axiosInstance, { getCsrfCookie } from '@/axios.js'
 import SnackComponent from '@/components/common/SnackComponent.vue'
 
 export default {
@@ -84,7 +83,7 @@ export default {
     methods: {
         async getUser() {
             try {
-                await axios.get('/sanctum/csrf-cookie');
+                await getCsrfCookie();
                 const response = await axiosInstance('/user', {
                     headers: {
                         Authorization: `Bearer ${decodeURIComponent($cookies.get('token'))}`
