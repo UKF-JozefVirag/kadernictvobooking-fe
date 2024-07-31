@@ -10,7 +10,7 @@ const axiosInstance = axios.create({
     }
 });
 
-export const STORAGE_URL = 'https://api.jvirag.sk/storage/';
+export const STORAGE_URL = 'https://api.jvirag.sk/storage/app/public/';
 
 export const getCsrfCookie = async () => {
     try {
