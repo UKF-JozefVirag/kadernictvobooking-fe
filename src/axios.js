@@ -14,10 +14,9 @@ export const STORAGE_URL = 'https://api.jvirag.sk/storage/app/public/';
 
 export const getCsrfCookie = async () => {
     try {
-        const response = await axiosInstance.get('https://api.jvirag.sk/sanctum/csrf-cookie');
-        console.log('success csrf: ', response);
+        await axiosInstance.get('https://api.jvirag.sk/sanctum/csrf-cookie');
     } catch (error) {
-        console.error('error csrf :', error);
+        return null;
     }
 };
 
