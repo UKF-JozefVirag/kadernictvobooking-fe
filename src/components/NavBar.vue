@@ -62,7 +62,7 @@ export default {
 
 <style>
 .nav-item {
-    font-size: large;
+    font-size: 1vw;
     white-space: nowrap;
 }
 
