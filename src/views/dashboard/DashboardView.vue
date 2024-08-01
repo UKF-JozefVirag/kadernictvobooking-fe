@@ -338,6 +338,7 @@ export default {
             Authorization: 'Bearer ' + decodeURIComponent($cookies.get('token'))
           }
         });
+
         const data = response.data;
         const labels = [];
         const datasets = [];
@@ -348,12 +349,21 @@ export default {
               const times = employeeData.times;
               const employeeName = employeeData.employee;
 
+              // Získanie všetkých kľúčov a určenie formátu štítkov
+              const timeKeys = Object.keys(times);
               if (labels.length === 0) {
-                labels.push(...Object.keys(times).sort((a, b) => {
-                  const [aHour, aMin] = a.split(':').map(Number);
-                  const [bHour, bMin] = b.split(':').map(Number);
-                  return aHour * 60 + aMin - (bHour * 60 + bMin);
-                }));
+                if (this.selectedOption === '2' || this.selectedOption === '3') {
+                  // Ak je selectedOption '2' alebo '3', zmeň kľúče času na štítky dátumov
+                  const sortedKeys = timeKeys.sort((a, b) => new Date(a) - new Date(b));
+
+                  sortedKeys.forEach(key => {
+                    const date = new Date(key);
+                    labels.push(format(date, 'dd/MM'));
+                  });
+                } else {
+                  // Pre iné možnosti zanechaj pôvodný formát kľúčov
+                  labels.push(...timeKeys.sort((a, b) => new Date(a) - new Date(b)));
+                }
               }
 
               datasets.push({
@@ -368,6 +378,8 @@ export default {
               this.snackText = this.$t('login.error') + ": " + employeeData;
             }
           });
+
+          // Pre selectedOption 2 a 3 zabezpeči, aby štítky boli vo formáte dd/MM
           this.employeeRevenuesLabels = labels;
           this.employeeRevenuesCount = datasets;
           this.secondValues = data;
@@ -382,6 +394,7 @@ export default {
         this.loadingEmployeeRevenues = false;
       }
     },
+
     generateColor(index) {
       const colors = [
         '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40',
