@@ -349,11 +349,9 @@ export default {
               const times = employeeData.times;
               const employeeName = employeeData.employee;
 
-              // Získanie všetkých kľúčov a určenie formátu štítkov
               const timeKeys = Object.keys(times);
               if (labels.length === 0) {
                 if (this.selectedOption === '2' || this.selectedOption === '3') {
-                  // Ak je selectedOption '2' alebo '3', zmeň kľúče času na štítky dátumov
                   const sortedKeys = timeKeys.sort((a, b) => new Date(a) - new Date(b));
 
                   sortedKeys.forEach(key => {
@@ -361,7 +359,6 @@ export default {
                     labels.push(format(date, 'dd/MM'));
                   });
                 } else {
-                  // Pre iné možnosti zanechaj pôvodný formát kľúčov
                   labels.push(...timeKeys.sort((a, b) => new Date(a) - new Date(b)));
                 }
               }
@@ -379,7 +376,6 @@ export default {
             }
           });
 
-          // Pre selectedOption 2 a 3 zabezpeči, aby štítky boli vo formáte dd/MM
           this.employeeRevenuesLabels = labels;
           this.employeeRevenuesCount = datasets;
           this.secondValues = data;
